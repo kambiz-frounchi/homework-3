@@ -10,7 +10,6 @@ function generateNextCharType(fromCharType) {
   nextCharType = fromCharType;
 
   for (var i = (charTypes.indexOf(fromCharType) + 1) % charTypes.length;  charTypes[i] != fromCharType; i = (i + 1) % (charTypes.length)) {
-    console.log("generateNextCharType = " + i);
  
     if (selectedCharTypes[i] == true) {
       nextCharType = charTypes[i];
@@ -55,7 +54,15 @@ function generatePassword() {
 
     console.log(selectedCharTypes);
 
-    if (selectedCharTypes == [false, false, false, false]) {
+    var numFalseCharType = 0;
+    for (var i = 0; i < selectedCharTypes.length; i++)
+    {
+      if (selectedCharTypes[i] == false) {
+        numFalseCharType++;
+      }
+    }
+
+    if (numFalseCharType == selectedCharTypes.length) {
       alert("At least one character type has to be selected!");
     }
     else {
@@ -66,8 +73,6 @@ function generatePassword() {
       alert("Too many tries, exiting!");
       return "";
     }
-
-    console.log(iteration);
   }
 
   //generate password
@@ -80,7 +85,6 @@ function generatePassword() {
 
   for (var i = 0; i < passwordLength; i++) {
     nextCharType = generateNextCharType(nextCharType);
-    console.log(nextCharType);
 
     switch (nextCharType) {
       case "lowercase": {
